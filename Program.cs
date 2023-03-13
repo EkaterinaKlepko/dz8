@@ -126,7 +126,7 @@ void FillArray(int[,] array)
 {
     for (int i = 0; i < array.GetLength(0); i++)
         for (int j = 0; j < array.GetLength(1); j++)
-            array[i, j] = new Random().Next(0, 10);
+            array[i, j] = new Random().Next(1, 11);
 }
 
 void PrintArray(int[,] array)
@@ -141,11 +141,18 @@ void PrintArray(int[,] array)
 
 int[,] Proizv(int[,] array, int[,] array1)
 {
-    int[,] arrayProizv = new int[array.GetLength(0), array.GetLength(1)];
+    int[,] arrayProizv = new int[array.GetLength(0), array1.GetLength(1)];
     for (int i = 0; i < array.GetLength(0); i++)
     {
-        for (int j = 0; j < array.GetLength(1); j++)
-            arrayProizv[i, j] = array[i, j] * array1[i, j] + array[i, j + 1] * array1[i + 1, j];
+        for (int j = 0; j < array1.GetLength(1); j++)
+        {
+            arrayProizv[i, j] = 0;
+            for (int k = 0; k < array.GetLength(1); k++)
+            {
+                arrayProizv[i, j] += array[i, k] * array1[k, j];
+            }
+        }
+            
     }
     return arrayProizv;
 }
@@ -161,4 +168,5 @@ PrintArray(array);
 Console.WriteLine();
 FillArray(array1);
 PrintArray(array1);
-Proizv(array, array1);
+Console.WriteLine();
+PrintArray(Proizv(array, array1));
